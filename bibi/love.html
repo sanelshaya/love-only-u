@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Для Тебя, Жаным 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@700&family=Italianno&family=Alex+Brush&family=Petit+Formal+Script&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Petit Formal Script', cursive;
+      background: #fff0f5;
+      overflow-x: hidden;
+      color: #5a3d3d;
+    }
+    section {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      padding: 40px 10px;
+      text-align: center;
+      background: #fff0f5;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1s ease, visibility 1s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+    }
+    section.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    h1, h2, p {
+      margin: 20px 0;
+    }
+    h1 {
+      font-family: 'Alex Brush', cursive;
+      font-size: 3.5em;
+      color: #a83279;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+      letter-spacing: 1px;
+      margin-bottom: 30px;
+    }
+    h2 {
+      font-family: 'Tangerine', cursive;
+      font-size: 3em;
+      color: #c45e88;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+    }
+    p {
+      font-family: 'Italianno', cursive;
+      font-size: 1.8em;
+      max-width: 80%;
+      line-height: 1.8;
+      letter-spacing: 0.5px;
+      margin: 15px 0;
+    }
+    .btn {
+      background: #d63384;
+      color: white;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 30px;
+      font-family: 'Petit Formal Script', cursive;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      min-width: 200px;
+    }
+    .btn:hover {
+      background: #ad1d63;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    .btn-container {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      max-width: 600px;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      width: 90%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+    .gallery img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: all 0.4s;
+      border: 2px solid #f8c8dc;
+      cursor: pointer;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    .wish-card {
+      display: block;
+      background: linear-gradient(135deg, #fff9fc 0%, #fff0f5 100%);
+      margin: 15px auto;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      max-width: 320px;
+      animation: fadeIn 2s ease;
+      font-size: 1.5em;
+      font-family: 'Italianno', cursive;
+      border: 1px solid #f8d7e6;
+    }
+    .floating-text {
+      position: absolute;
+      animation: floatText 10s linear infinite;
+      color: #d63384;
+      font-size: 1.8em;
+      opacity: 0.7;
+      font-family: 'Tangerine', cursive;
+      text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+      pointer-events: none;
+      z-index: 1;
+    }
+    @keyframes floatText {
+      from { top: 100%; transform: rotate(-5deg); opacity: 0; }
+      to { top: -10%; transform: rotate(5deg); opacity: 0.7; }
+    }
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    audio {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      opacity: 0.7;
+      width: 200px;
+      transition: all 0.3s;
+    }
+    audio:hover {
+      opacity: 1;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-50px) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 0.8; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+    .music-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 1000;
+      background: rgba(214, 51, 132, 0.8);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: all 0.3s;
+    }
+    .music-btn:hover {
+      background: #ad1d63;
+      transform: scale(1.1);
+    }
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(214, 51, 132, 0.7);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 15px;
+      font-family: 'Petit Formal Script', cursive;
+      cursor: pointer;
+      transition: all 0.3s;
+      z-index: 10;
+    }
+    .back-btn:hover {
+      background: #ad1d63;
+    }
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5em;
+      }
+      h2 {
+        font-size: 2.5em;
+      }
+      p {
+        font-size: 1.5em;
+        max-width: 90%;
+      }
+      .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+      .gallery img {
+        height: 200px;
+      }
+      audio {
+        width: 150px;
+        bottom: 10px;
+        right: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Новая романтичная музыка - "A Thousand Years" by Christina Perri -->
+  <audio id="music" src="call.mp3" loop></audio>
+  <button class="music-btn" onclick="toggleMusic()">🔊</button>
+
+  <div class="hearts"></div>
+
+  <section id="intro-section" class="active">
+    <h1>Для Тебя, Жаным 💖</h1>
+    <p>Этот сайт — моё признание тебе...</p>
+    <button class="btn" onclick="showSection('poem-section')">Открыть стих</button>
+  </section>
+
+  <section id="poem-section">
+    <button class="back-btn" onclick="showSection('intro-section')">← Назад</button>
+    <h2>Стих</h2>
+    <p>Ты — мой тихий рассвет, <br>
+    мой самый нежный свет.<br>
+    Даже если весь мир замрёт,<br>
+    твой смех — моя вселенная.</p>
+    <p>Я не умею слагать поэмы,<br>
+    но знаю:<br>
+    каждая твоя улыбка —<br>
+    это то, ради чего стоит просыпаться.</p>
+    <p>Я не искал волшебства,<br>
+    но ты появилась —<br>
+    и теперь даже обычный день<br>
+    становится сказкой.</p>
+    <div class="btn-container">
+      <button class="btn" onclick="showSection('intro-section')">В начало</button>
+      <button class="btn" onclick="showSection('gallery-section')">Галерея</button>
+    </div>
+  </section>
+
+  <section id="gallery-section">
+    <button class="back-btn" onclick="showSection('poem-section')">← Назад</button>
+    <h2>Наши воспоминания</h2>
+    <div class="gallery">
+      <img src="1.jpeg" alt="Фото 1">
+      <img src="2.jpeg" alt="Фото 2">
+      <img src="3.jpeg" alt="Фото 3">
+      <img src="4.jpeg" alt="Фото 4">
+      <img src="5.jpeg" alt="Фото 5">
+      <img src="6.jpeg" alt="Фото 6">
+      <img src="7.jpeg" alt="Фото 7">
+      <img src="8.jpeg" alt="Фото 8">
+      <img src="9.jpeg" alt="Фото 9">
+      <img src="10.jpeg" alt="Фото 10">
+    </div>
+    <div class="btn-container">
+      <button class="btn" onclick="showSection('poem-section')">К стиху</button>
+      <button class="btn" onclick="showSection('wishes-section')">Пожелания</button>
+    </div>
+  </section>
+
+  <section id="wishes-section">
+    <button class="back-btn" onclick="showSection('gallery-section')">← Назад</button>
+    <h2>Мои пожелания</h2>
+    <div class="wish-card">Ты — моё вдохновение 💫</div>
+    <div class="wish-card">Я с тобой счастлив каждый день ☀️</div>
+    <div class="wish-card">Ты милая, как рассвет 🌸</div>
+    <div class="wish-card">Без тебя — не я... ❤️</div>
+    <div class="wish-card">Ты — моя вселенная ✨</div>
+    <div class="wish-card">Ты украшаешь мою жизнь 🌷</div>
+    <div class="wish-card">Пусть каждый день приносит тебе радость 🌈</div>
+    <div class="wish-card">Ты заслуживаешь всего самого лучшего 💎</div>
+    <div class="wish-card">Спасибо, что ты есть в моей жизни 🙏</div>
+    <div class="wish-card">Я люблю тебя больше, чем слова могут выразить 💞</div>
+    <div class="btn-container">
+      <button class="btn" onclick="showSection('intro-section')">В начало</button>
+      <button class="btn" onclick="showSection('gallery-section')">Галерея</button>
+    </div>
+  </section>
+
+  <script>
+    let musicPlaying = false;
+    const music = document.getElementById('music');
+    const musicBtn = document.querySelector('.music-btn');
+
+    function showSection(id) {
+      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function toggleMusic() {
+      if (musicPlaying) {
+        music.pause();
+        musicBtn.innerHTML = '🔇';
+      } else {
+        music.play().catch(e => console.log("Автовоспроизведение заблокировано"));
+        musicBtn.innerHTML = '🔊';
+      }
+      musicPlaying = !musicPlaying;
+    }
+
+    // Включение музыки только после взаимодействия
+    document.addEventListener('click', function initMusic() {
+      music.play().then(() => {
+        music.pause();
+        music.currentTime = 0;
+        musicPlaying = false;
+        musicBtn.innerHTML = '🔇';
+      }).catch(e => {
+        console.log("Автовоспроизведение заблокировано");
+      });
+      document.removeEventListener('click', initMusic);
+    }, { once: true });
+
+    const compliments = [
+      "Ты прекрасна", "Моя любовь", "Ты волшебна", "Моя мечта", "Ты совершенство",
+      "Моя радость", "Ты нежна", "Моя страсть", "Ты особенная", "Моя судьба",
+      "Ты лучик света", "Моё счастье", "Ты ангел", "Моя муза", "Ты чудо"
+    ];
+
+    setInterval(() => {
+      const el = document.createElement('div');
+      el.className = 'floating-text';
+      el.innerText = compliments[Math.floor(Math.random() * compliments.length)];
+      el.style.left = Math.random() * 100 + '%';
+      el.style.animationDuration = (8 + Math.random() * 7) + 's';
+      el.style.fontSize = (36 + Math.random() * 24) + 'px';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 15000);
+    }, 2000);
+
+    const heartsContainer = document.querySelector('.hearts');
+    setInterval(() => {
+      const heart = document.createElement('div');
+      heart.innerHTML = ['💖', '💗', '💓', '💘', '💝', '💞'][Math.floor(Math.random()*6)];
+      heart.style.position = 'absolute';
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.top = '-50px';
+      heart.style.fontSize = (24 + Math.random() * 30) + 'px';
+      heart.style.opacity = 0.8;
+      heart.style.animation = `fall ${4 + Math.random() * 6}s linear infinite`;
+      heart.style.transform = `rotate(${Math.random() * 360}deg)`;
+      heartsContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), 10000);
+    }, 300);
+
+    // Предзагрузка изображений
+    window.onload = function() {
+      const imageUrls = [
+        'https://source.unsplash.com/random/200x250/?couple,love,1',
+        'https://source.unsplash.com/random/200x250/?couple,romantic,2',
+        'https://source.unsplash.com/random/200x250/?love,kiss,3',
+        'https://source.unsplash.com/random/200x250/?together,happy,4',
+        'https://source.unsplash.com/random/200x250/?couple,smile,5',
+        'https://source.unsplash.com/random/200x250/?romance,relationship,6',
+        'https://source.unsplash.com/random/200x250/?love,hug,7',
+        'https://source.unsplash.com/random/200x250/?couple,beach,8',
+        'https://source.unsplash.com/random/200x250/?together,fun,9',
+        'https://source.unsplash.com/random/200x250/?romantic,moment,10'
+      ];
+      
+      imageUrls.forEach(url => {
+        const img = new Image();
+        img.src = url;
+      });
+    };
+  </script>
+
+</body>
+</html>
